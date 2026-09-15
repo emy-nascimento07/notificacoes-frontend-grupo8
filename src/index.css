@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fundo: #EDF6FF;
-  --color-textoConfirmacao: #046E8F;
-  --color-botaoLogin: #81B8EE;
+  --color-fundo: #edf6ff;
+  --color-textoConfirmacao: #046e8f;
+  --color-botaoLogin: #81b8ee;
   --color-textoBase: #000000;
-  --color-textoSecundario: #FFFFFF;
-  --color-botaoChamada: #12C32C;
-  --color-botaoCancelar: #D51B1E;
+  --color-textoSecundario: #ffffff;
+  --color-botaoChamada: #12c32c;
+  --color-botaoCancelar: #d51b1e;
 }
