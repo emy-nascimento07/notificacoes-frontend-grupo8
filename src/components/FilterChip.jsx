@@ -4,7 +4,7 @@ function FilterChip({ label, ativo, onClick }) {
       onClick={onClick}
       className={`px-3 py-1.5 rounded-full text-sm border ${
         ativo
-          ? "bg-marca text-white border-marca"
+          ? "bg-gray-500 text-white border-gray-500"
           : "bg-white text-gray-500 border-gray-200"
       }`}
     >
