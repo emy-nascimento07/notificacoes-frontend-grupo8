@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fundo: #edf6ff;
+  --color-textoConfirmacao: #046e8f;
+  --color-botaoLogin: #81b8ee;
+  --color-textoBase: #000000;
+  --color-textoSecundario: #ffffff;
+  --color-botaoChamada: #12c32c;
+  --color-botaoCancelar: #d51b1e;
+}
