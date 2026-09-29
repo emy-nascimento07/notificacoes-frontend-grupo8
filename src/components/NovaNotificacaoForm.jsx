@@ -1,26 +1,52 @@
-import Button from "./Button";
 import { useState } from "react";
+import Button from "./Button";
+import { API_URL } from "../../config";
+import { useAuth } from "../context/AuthContext"; 
 
 function NovaNotificacaoForm({ onAdicionar }) {
   const [titulo, setTitulo] = useState("");
   const [texto, setTexto] = useState("");
   const [canal, setCanal] = useState("PUSH");
 
-  function handleSubmit(e) {
-    e.preventDefault(); // Cancela o carregamento da página quando o form é enviado
+  const { token } = useAuth();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
     if (!titulo.trim()) return;
 
-    onAdicionar({
-      id: Date.now(),
+    const novaNotificacao = {
       canal,
-      hora: new Date().toLocaleDateString().slice(0, 5),
       titulo,
       texto,
-      lida: false,
-    });
+    };
 
-    setTitulo("");
-    setTexto("");
+    try {
+      const resposta = await fetch(`${API_URL}/notificacoes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(novaNotificacao),
+      });
+
+      if (!resposta.ok) {
+        throw new Error("Erro ao salvar a notificação na API");
+      }
+
+      const dadoSalvo = await resposta.json();
+
+      onAdicionar(dadoSalvo);
+
+      setTitulo("");
+      setTexto("");
+    } catch (erro) {
+      console.error(erro);
+      alert(
+        "Não foi possível salvar a notificação. Verifique sua conexão ou login.",
+      );
+    }
   }
 
   return (
@@ -29,14 +55,22 @@ function NovaNotificacaoForm({ onAdicionar }) {
         value={titulo}
         onChange={(e) => setTitulo(e.target.value)}
         placeholder="Título da notificação"
-        className="border border-gray-200 rounded-lg px-3 py-2"
+        className="border border-gray-200 rounded-lg px-3 py-2 text-gray-800"
       />
       <textarea
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
-        placeholder="Texto"
-        className="border border-gray-200 rounded-lg px-3 py-2"
+        placeholder="Texto da notificação"
+        className="border border-gray-200 rounded-lg px-3 py-2 text-gray-800"
       />
+      <select
+        value={canal}
+        onChange={(e) => setCanal(e.target.value)}
+        className="border border-gray-200 rounded-lg px-3 py-2 text-gray-800 bg-white"
+      >
+        <option value="PUSH">Push</option>
+        <option value="EMAIL">E-mail</option>
+      </select>
       <Button variant="botaoChamada">Adicionar notificação</Button>
     </form>
   );

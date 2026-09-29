@@ -1,0 +1,69 @@
+import { useState, useEffect } from "react";
+import NovaNotificacaoForm from "../components/NovaNotificacaoForm"; 
+import FilterBar from "../components/FilterBar";
+import NotificationList from "../components/NotificationList";
+import { API_URL } from "../../config";
+
+function Home() {
+  const [notificacoes, setNotificacoes] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+  const [filtro, setFiltro] = useState("todas");
+
+  useEffect(() => {
+    async function buscar() {
+      try {
+        const resposta = await fetch(`${API_URL}/notificacoes`);
+        if (!resposta.ok) throw new Error("Erro ao buscar notificações");
+        const dados = await resposta.json();
+        setNotificacoes(dados);
+      } catch (e) {
+        setErro(e.message);
+      } finally {
+        setCarregando(false);
+      }
+    }
+    buscar();
+  }, []);
+
+  const notificacoesVisiveis = notificacoes.filter((n) => {
+    if (filtro === "todas") return true;
+    if (filtro === "push") return n.canal === "PUSH";
+    if (filtro === "email") return n.canal === "EMAIL";
+    return false;
+  });
+
+  function adicionarNotificacao(nova) {
+    setNotificacoes((atual) => [nova, ...atual]);
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Central de Notificações</h1>
+
+      <NovaNotificacaoForm onAdicionar={adicionarNotificacao} />
+
+      <div className="flex gap-2 mb-4">
+        <FilterBar filtroAtual={filtro} onFiltroChange={setFiltro} />
+      </div>
+
+      <div className="flex flex-col gap-3">
+        {carregando && (
+          <p className="text-gray-500">Carregando notificações...</p>
+        )}
+
+        {erro && (
+          <p className="text-red-600">
+            Não foi possível carregar. Tente novamente.
+          </p>
+        )}
+
+        {!carregando && !erro && (
+          <NotificationList notificacoes={notificacoesVisiveis} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default Home;
