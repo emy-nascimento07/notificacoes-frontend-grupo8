@@ -1,7 +1,7 @@
 function Button({ children, variant = "primario", onClick }) {
   const estilos = {
-    primario: "bg-marca text-white",
-    destaque: "bg-destaque text-white",
+    primario: "bg-marca text-black",
+    destaque: "bg-destaque text-black",
   };
   return (
     <button
