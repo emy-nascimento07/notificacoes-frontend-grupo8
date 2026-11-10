@@ -39,7 +39,31 @@ function NotificationCard({ id, canal, hora, titulo, texto, lida, onMarcarLida, 
                 </div>
             )}
         </div>
-    );
+
+        <h3 className="font-semibold text-base mb-1 text-gray-800">
+          {assunto}
+        </h3>
+        <p className="text-sm text-gray-700">Para: {destinatario_email}</p>
+      </div>
+
+      <div className="flex gap-2 ml-4">
+        {!enviada && (
+          <button
+            onClick={handleMarcarComoEnviada}
+            class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-2 py-1 rounded transition-colors"
+          >
+            ✓ Enviar
+          </button>
+        )}
+        <button
+          onClick={handleApagar}
+          className="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-2 py-1 rounded transition-colors"
+        >
+          Apagar
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default NotificationCard;

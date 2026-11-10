@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 function NovaNotificacaoForm({ onAdicionar }) {
   const [titulo, setTitulo] = useState("");
   const [texto, setTexto] = useState("");
-  const [canal, setCanal] = useState("PUSH");
+  const [tipo, setTipo] = useState("confirmacao");
 
   const { token } = useAuth();
 
@@ -50,14 +50,23 @@ function NovaNotificacaoForm({ onAdicionar }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-3 bg-white p-4 rounded-xl border border-gray-100 mb-6"
+    >
+      <h2 className="text-lg font-semibold text-gray-800">Nova Notificação</h2>
+
       <input
+        type="text"
+        placeholder="Título da notificação"
         value={titulo}
         onChange={(e) => setTitulo(e.target.value)}
         placeholder="Título da notificação"
         className="border border-gray-200 rounded-lg px-3 py-2 text-gray-800"
       />
+
       <textarea
+        placeholder="Texto ou mensagem..."
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         placeholder="Texto da notificação"
