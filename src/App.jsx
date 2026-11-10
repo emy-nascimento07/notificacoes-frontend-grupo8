@@ -18,6 +18,7 @@ function App() {
         path="/"
         element={
           <RotaProtegida>
+            <Login />
             <Home />
           </RotaProtegida>
         }

@@ -72,7 +72,7 @@ function Login() {
           </p>
         )}
 
-        <button className="bg-marca text-white rounded-lg px-4 py-2 font-semibold">
+        <button className="bg-blue-600 text-white rounded-lg px-4 py-2 font-semibold">
           Entrar
         </button>
       </form>
