@@ -12,7 +12,6 @@ function NovaNotificacaoForm({ onAdicionar }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Validação simples para não enviar campos vazios
     if (!titulo.trim() || !texto.trim()) {
       alert("Por favor, preencha todos os campos.");
       return;
@@ -40,7 +39,6 @@ function NovaNotificacaoForm({ onAdicionar }) {
 
       onAdicionar(dadosSalvos);
 
-      // Limpa os campos após o sucesso
       setTitulo("");
       setTexto("");
       setTipo("confirmacao");
@@ -73,15 +71,17 @@ function NovaNotificacaoForm({ onAdicionar }) {
       />
 
       <div className="flex gap-4 items-center">
-        <label className="text-sm text-gray-600 font-medium">Tipo:</label>
-        <select
-          value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
-          className="border border-gray-200 rounded-lg px-2 py-1 bg-white"
-        >
-          <option value="confirmacao">Confirmação</option>
-          <option value="lembrete">Lembrete</option>
-        </select>
+        <label className="flex gap-2 items-center text-sm text-gray-600 font-medium">
+          <span>Tipo:</span>
+          <select
+            value={tipo}
+            onChange={(e) => setTipo(e.target.value)}
+            className="border border-gray-200 rounded-lg px-2 py-1 bg-white font-normal"
+          >
+            <option value="confirmacao">Confirmação</option>
+            <option value="lembrete">Lembrete</option>
+          </select>
+        </label>
       </div>
 
       <button
