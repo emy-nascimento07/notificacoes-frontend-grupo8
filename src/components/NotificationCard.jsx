@@ -90,7 +90,7 @@ function NotificationCard({
         {!enviada && (
           <button
             onClick={handleMarcarComoEnviada}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-2 py-1 rounded transition-colors"
+            class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-2 py-1 rounded transition-colors"
           >
             ✓ Enviar
           </button>
